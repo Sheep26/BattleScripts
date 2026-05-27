@@ -105,20 +105,16 @@ func_map = {
 }
 
 if __name__ == "__main__":
-	try:
-		# Sets the name of the Godot application. This is used to create a directory for communication data within 'godot/app_userdata/<app_name>'.
-		# Please, use the name set in "application/config/name" Godot property (or in project config --> Application --> Name)
-		app_name = "BattleScripts"
-		godot_friend.set_app_name(app_name)
+	# Sets the name of the Godot application. This is used to create a directory for communication data within 'godot/app_userdata/<app_name>'.
+	# Please, use the name set in "application/config/name" Godot property (or in project config --> Application --> Name)
+	app_name = "BattleScripts"
+	godot_friend.set_app_name(app_name)
 
-		# Makes the Python functions accessible from the Godot application by name.
-		godot_friend.add_map(func_map)
+	# Makes the Python functions accessible from the Godot application by name.
+	godot_friend.add_map(func_map)
 
-		# Set tkinter debug even in export
-		godot_friend.set_debug(True)
+	# Set tkinter debug even in export
+	godot_friend.set_debug(True)
 
-		# Processes input from Godot and executes the corresponding Python function.
-		godot_friend.ready()
-	except Exception as e:
-		sys.exit(1)
-	
+	# Processes input from Godot and executes the corresponding Python function.
+	godot_friend.ready()

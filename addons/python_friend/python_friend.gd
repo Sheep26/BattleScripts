@@ -29,16 +29,21 @@ func python_init(func_name: String, params: Dictionary):
 
 	if (OS.has_feature("windows")):
 		OS.execute("where", ["python"], out)
+
+		if (out):
+			python_interpreter = out[0].split("\r\n")[0]
+		else:
+			get_tree().quit()
 	elif (OS.has_feature("linux")):
 		OS.execute("which", ["python3"], out)
 		
 		if (out.is_empty()):
 			OS.execute("which", ["python"], out)
-
-	if (out):
-		python_interpreter = out[0].replace("\n", "")
-	else:
-		get_tree().quit()
+		
+		if (out):
+			python_interpreter = out[0].split("\n")[0]
+		else:
+			get_tree().quit()
 
 	generate_python_input(func_name, params) 
 	thread = Thread.new()
@@ -80,7 +85,7 @@ func read_python_output() -> Dictionary:
 
 func execute_python_script():
 	var interpreter_path = ProjectSettings.globalize_path(python_interpreter)
-	var main_file = ProjectSettings.globalize_path(python_main_file)
+	var main_file = ProjectSettings.globalize_path(python_main_file).replace("/", "\\")
 
 	print("Interpreter:", interpreter_path)
 	print("Script:", main_file)
