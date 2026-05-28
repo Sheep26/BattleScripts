@@ -1,4 +1,8 @@
-ACTIONS = {'STEAL': 0, 'SUPPORT': 1}
+from enum import Enum, auto
+
+class ACTIONS(Enum):
+    STEAL = 0
+    SUPPORT = 1
 
 class Script():
     def __init__(self):
@@ -9,7 +13,7 @@ class Script():
         self.their_move_history = []
 
     def steal_or_support(self):
-        return ACTIONS['STEAL']
+        return ACTIONS.STEAL
 
     def update(self, my_money, their_money, current_turn, my_last_turn, their_last_turn):
         self.my_money = my_money

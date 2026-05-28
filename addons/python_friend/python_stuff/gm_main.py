@@ -10,11 +10,11 @@
 import importlib.util
 from pathlib import Path
 import inspect
-from script import Script
+from script import ACTIONS
 
 # Constants
-STEAL = 0
-SUPPORT = 1
+STEAL = ACTIONS.STEAL.value
+SUPPORT = ACTIONS.SUPPORT.value
 
 class PlayerWrapper:
     """Loads a student script and manages its state."""
@@ -49,7 +49,7 @@ class PlayerWrapper:
             turn_number,
             self.last_move,
             opponent_last_move
-        )
+        ).value
 
         # Validate move
         if move not in (STEAL, SUPPORT):
