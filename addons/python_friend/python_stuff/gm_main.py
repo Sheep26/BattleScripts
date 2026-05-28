@@ -10,6 +10,7 @@
 import importlib.util
 from pathlib import Path
 import inspect
+from script import Script
 
 # Constants
 STEAL = 0
@@ -21,6 +22,7 @@ class PlayerWrapper:
     def __init__(self, filepath):
         self.filepath = Path(filepath)
         self.module = self._load_module(self.filepath)
+        self.script = self.module.script
 
         # Persistent state for this player
         self.money = 0
@@ -41,7 +43,7 @@ class PlayerWrapper:
         Calls the student's main() function.
         The student's update() will modify their internal variables.
         """
-        move = self.module.main(
+        move = self.script.main(
             self.money,
             opponent_money,
             turn_number,
