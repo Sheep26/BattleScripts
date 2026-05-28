@@ -1,6 +1,6 @@
 # BattleScripts
 
-## Prerequisites
+### Prerequisites
 In order to run BattleScripts, install python as it relies on an external python interpreter.  
 Also ensure the platformdirs package is installed (it usually is by default on windows).
 
