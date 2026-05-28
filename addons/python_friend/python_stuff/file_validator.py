@@ -104,7 +104,6 @@ def validate_file(filepath):
     # All checks passed
     return {'valid': True, 'name': path.stem, 'errors': []}
 
-
 def main():
     """Entry point for Godot GDScript calls."""
     if len(sys.argv) < 2:

@@ -6,15 +6,13 @@ extends Node
 # @export_file("*") var python_interpreter: String = "res://addons/python_friend/python_stuff/venv/Scripts/python.exe"
 ## Path to the main Python file [br] [br]
 ## Example:[br]res://addons/python_friend/python_stuff/main.py
-@export_file("*.py") var python_main_file: String = "res://addons/python_friend/python_stuff/main.py"
+@export_file("*.py") var python_main_file: String = "user://main.py"
 ## Name and extension of the python_main_file after being exported [br] [br]
 ## Examples:[br]
 ## Linux/MacOS: py_backend [br]
 ## Windows: py_backend.exe [br] [br]
 ## Note: This executable must be in the same folder as the Godot app
 # @export var exec_file_name: String = "py_backend.exe"
-
-var python_interpreter: String = ""
 
 ## Emitted when Godot receives the output from Python[br] [br]
 ## [param output] - [Dictionary] with the received data from Python
@@ -25,26 +23,6 @@ signal python_output(output, is_error)
 var thread
 
 func python_init(func_name: String, params: Dictionary):
-	var out = []
-
-	if (OS.has_feature("windows")):
-		OS.execute("where", ["python"], out)
-
-		if (out):
-			python_interpreter = out[0].split("\r\n")[0]
-		else:
-			get_tree().quit()
-	elif (OS.has_feature("linux")):
-		OS.execute("which", ["python3"], out)
-		
-		if (out.is_empty()):
-			OS.execute("which", ["python"], out)
-		
-		if (out):
-			python_interpreter = out[0].split("\n")[0]
-		else:
-			get_tree().quit()
-
 	generate_python_input(func_name, params) 
 	thread = Thread.new()
 	thread.start(execute_python_script)
@@ -84,8 +62,11 @@ func read_python_output() -> Dictionary:
 		return {}
 
 func execute_python_script():
-	var interpreter_path = ProjectSettings.globalize_path(python_interpreter)
-	var main_file = ProjectSettings.globalize_path(python_main_file).replace("/", "\\")
+	var interpreter_path = ProjectSettings.globalize_path(Root.python_interpreter)
+	var main_file = ProjectSettings.globalize_path(python_main_file)
+	
+	if OS.has_feature("windows"):
+		main_file = main_file.replace("/", "\\")
 
 	print("Interpreter:", interpreter_path)
 	print("Script:", main_file)
