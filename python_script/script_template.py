@@ -5,6 +5,16 @@
 
 from script import Script, ACTIONS
 
+'''
+Variables available in Script class.
+
+my_money = 0
+their_money = 0
+current_turn = 0
+my_move_history = []
+their_move_history = []
+'''
+
 class ScriptTemplate(Script):
     # Initalize the script.
     def __init__(self):

@@ -24,6 +24,12 @@ On the second turn:
                 their_move_history = [0]     
 '''
 
+# This file focuses on understanding how these arrays work.
+'''
+self.my_move_history = []        #Array containing your previous moves
+self.their_move_history = []     #Array containing the other script's previous moves
+'''
+
 class Array(Script):
     # Initalize the script.
     def __init__(self):
