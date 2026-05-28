@@ -1,7 +1,7 @@
 # BattleScripts
 
 ## Prerequisites
-In order to run BattleScripts, install python as it relies on an external python interpreter.
+In order to run BattleScripts, install python as it relies on an external python interpreter.  
 Also ensure the platformdirs package is installed (it usually is by default on windows).
 
 BattleScripts is a turn-based educational game developed to be ran in Tūhura Tech sessions. Students will write a script in python to act out a strategy, and compete against other scripts.
