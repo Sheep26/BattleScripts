@@ -21,6 +21,6 @@ class ScriptTemplate(Script):
         super().__init__() # This calls the script parent function.
 
     def steal_or_support(self):
-        return ACTIONS['STEAL']
+        return ACTIONS.STEAL
 
 script = ScriptTemplate()
