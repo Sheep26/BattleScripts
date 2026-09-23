@@ -1,6 +1,6 @@
-from enum import Enum, auto
+from enum import IntEnum
 
-class ACTIONS(Enum):
+class ACTIONS(IntEnum):
     STEAL = 0
     SUPPORT = 1
 
@@ -24,4 +24,5 @@ class Script():
 
     def main(self, my_money, their_money, current_turn, my_last_turn, their_last_turn):
         self.update(my_money, their_money, current_turn, my_last_turn, their_last_turn)
+
         return self.steal_or_support()

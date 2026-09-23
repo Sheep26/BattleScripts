@@ -12,8 +12,8 @@ from pathlib import Path
 from script import ACTIONS
 
 # Constants
-STEAL = ACTIONS.STEAL.value
-SUPPORT = ACTIONS.SUPPORT.value
+STEAL = ACTIONS.STEAL
+SUPPORT = ACTIONS.SUPPORT
 
 class PlayerWrapper:
     """Loads a student script and manages its state."""
@@ -52,16 +52,14 @@ class PlayerWrapper:
         )
 
         # Validate move
-        if not move or move not in (ACTIONS.STEAL, ACTIONS.SUPPORT):
-            raise ValueError(
-                f"Invalid move returned by {self.filepath.name}: {move}"
-            )
+        if move not in (STEAL, SUPPORT):
+            raise ValueError(f"Invalid move returned by {self.filepath.name}: {move}")
 
         # Update internal state
-        self.last_move = move.value
-        self.move_history.append(move.value)
+        self.last_move = move
+        self.move_history.append(move)
 
-        return move.value
+        return move
 
 
 class GameManager:
