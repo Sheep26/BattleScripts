@@ -43,20 +43,13 @@ class PlayerWrapper:
         Calls the student's main() function.
         The student's update() will modify their internal variables.
         """
-        move = self.script.main(
-            self.money,
-            opponent_money,
-            turn_number,
-            self.last_move,
-            opponent_last_move
-        )
+        move = self.script.main(self.money, opponent_money, turn_number, self.last_move, opponent_last_move)
 
         # Validate move
         if move not in (STEAL, SUPPORT):
             raise ValueError(f"Invalid move returned by {self.filepath.name}: {move}")
 
         # Update internal state
-        self.last_move = move
         self.move_history.append(move)
 
         return move
@@ -122,28 +115,27 @@ class GameManager:
 
         self.turn += 1
 
+        # This code is atrocious.
+
+        # Run P2 Script
         try:
             # Get moves from each player
-            p1_move = self.p1.run_turn(
-                opponent_money=self.p2.money,
-                turn_number=self.turn,
-                opponent_last_move=self.p2.last_move
-            )
+            p1_move = self.p1.run_turn(opponent_money=self.p2.money, turn_number=self.turn, opponent_last_move=self.p2.last_move)
         except ValueError as err:
             raise 
         except Exception as err:
             raise Exception(f"Error in P1 script: {str(err)}") from err
+
+        # Run P2 Script
         try:
-            p2_move = self.p2.run_turn(
-                opponent_money=self.p1.money,
-                turn_number=self.turn,
-                opponent_last_move=self.p1.last_move
-            )
+            p2_move = self.p2.run_turn(opponent_money=self.p1.money, turn_number=self.turn, opponent_last_move=self.p1.last_move)
         except ValueError as err:
             raise 
         except Exception as err:
             raise Exception(f"Error in P2 script: {str(err)}") from err
-        
+
+        self.p1.last_move = p1_move
+        self.p2.last_move = p2_move
 
         # Apply game rules
         self.resolve_turn(p1_move, p2_move)

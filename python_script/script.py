@@ -11,6 +11,7 @@ class Script():
         self.current_turn = 0
         self.my_move_history = []
         self.their_move_history = []
+        self.meaning_of_life = 42
 
     def steal_or_support(self):
         return ACTIONS.STEAL
