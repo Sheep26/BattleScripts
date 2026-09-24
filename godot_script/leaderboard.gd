@@ -16,7 +16,7 @@ func _process(_delta: float) -> void:
 
 
 func read_leaderboard_file():
-	var file = FileAccess.open("leaderboard.json", FileAccess.READ)
+	var file = FileAccess.open("user://leaderboard.json", FileAccess.READ)
 	if file:
 		var content = file.get_as_text()
 		var json_parser = JSON.new()
@@ -34,7 +34,7 @@ func read_leaderboard_file():
 
 
 func clear_leaderboard_file():
-	var file = FileAccess.open("leaderboard.json", FileAccess.WRITE)
+	var file = FileAccess.open("user://leaderboard.json", FileAccess.WRITE)
 	if file:
 		var new_file: Dictionary = {}
 		file.store_string(JSON.stringify(new_file))
